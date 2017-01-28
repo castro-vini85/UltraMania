@@ -17,4 +17,32 @@ public class ShotControl : MonoBehaviour
     {
 
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy") && gameObject.CompareTag("PlayerShot"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+            ShipControl.playerShotsCount--;
+        }
+
+        if (other.CompareTag("Player") && gameObject.CompareTag("EnemyShot"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+            Level1.emenyShotsCount--;
+        }
+
+        if (other.CompareTag("GameController"))
+        {
+            Destroy(gameObject);
+
+            if (gameObject.CompareTag("EnemyShot"))
+                Level1.emenyShotsCount--;
+
+            if (gameObject.CompareTag("PlayerShot"))
+                ShipControl.playerShotsCount--;
+        }
+    }
 }
